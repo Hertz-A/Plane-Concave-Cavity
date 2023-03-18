@@ -1,0 +1,54 @@
+import numpy as np
+#import matplotlib.pyplot as plt
+
+#Todas as distâncias estão em unidade de metros!
+
+lamb = 780*1e-9 #Comprimento de onda do laser
+R = 0.05 #raio da lente concava da cavidade
+f = 40*1e-2 #distância focal da lente focal
+#w_0ia = 1.32*1e-3 #beam waist do feixe colimado // Este valor deve ser obtido experimentalmente
+#w_0ib = 1.44*1e-3
+#w_0ic = 1.57*1e-3
+
+def rayleigh_range(waist_entrada):
+    z_0 = (np.pi*waist_entrada**2)/lamb
+    return z_0
+
+def beam_waist_focado(waist_entrada):
+    z_0 = rayleigh_range(waist_entrada)
+    w_0f = waist_entrada/((1 + (z_0/f)**2)**(1/2))
+    return w_0f
+
+def dist_focal(waist_entrada, waist_desejado, rayleigh_range):
+    f_lente = (rayleigh_range*waist_desejado)/(((waist_entrada*2)+(waist_desejado*2))**(1/2))
+    return f_lente
+
+def tamanho_cavidade_pc(beam_waist):
+    d_a = (R/2) + (((R*2) - 4((beam_waist)**4)*((np.pi/lamb)**2))**(1/2))/2
+    d_b = (R/2) - (((R*2) - 4((beam_waist)**4)*((np.pi/lamb)**2))**(1/2))/2
+    return d_a, d_b
+
+def beam_width(beam_waist, dist,rayleigh_range):
+    w = beam_waist*(1 + (dist/rayleigh_range)**2)
+    return w
+
+w = beam_width(5.1*1e-6, 1*1e-2, 52.69*1e-6)
+z_0 = rayleigh_range(w)
+f_0 = dist_focal(w,121.7*1e-6,z_0)
+
+#print(w)
+#print(z_0)
+print(f_0)
+
+
+#print(tamanho_cavidade_pc(78.47*1e-6))
+
+#Plot do gráfico "tamanho da cavidade X beam waist":
+#d_pc = np.linspace(0,0.1,1000)
+#w_0 = np.array(d_pc.shape)
+#w_0 = ((lamb/np.pi)(d_pc(R - d_pc))**(1/2))**(1/2)
+#plt.plot(d_pc,w_0)
+
+#print(rayleigh_range(w_0ia))
+#print(rayleigh_range(w_0ib))
+#print(rayleigh_range(w_0ic))
