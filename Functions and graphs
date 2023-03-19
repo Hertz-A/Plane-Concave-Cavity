@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 
     
 lamb = 780*1e-9 #Comprimento de onda do laser
-R = 0.05 #raio da lente concava da cavidade
+R = 0.05 #raio do espelho concavo da cavidade
 f = 40*1e-2 #distância focal da lente focal
 w_0i = 1.32*1e-3 #beam waist do feixe colimado // Este valor deve ser obtido experimentalmente
 
