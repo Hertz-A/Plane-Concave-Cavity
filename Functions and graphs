@@ -44,3 +44,40 @@ plt.ylabel("Beam Waist (*1e-5 m)")
 
 plt.legend()
 plt.show()
+
+"""
+Plot do gráfico de estabilidade de uma cavidade com espelhos esféricos
+em função dos fatores g_1 e g_2. Para uma cavidade Plano-Côncava, basta
+considerar R_2 -> infinito.
+
+import numpy as np
+import matplotlib.pyplot as plt
+
+R_2 = 0.05
+
+d = np.linspace(-3,3,5000)
+
+g_2 = 1 + d/R_2 #Funções limite de estabilidade
+g_1 = 1/g_2
+b = d*0
+
+g_1a = 1 - (2.5/2.5) #Ponto referente a configuração onde temos R = d // condicionalmente estável
+g_2a = 1
+
+g_1b = 1 - (2.4/2.5) #Valor utilizado na cavidade com R > d// estável
+g_2b = 1
+
+plt.xlim([-3,3])
+plt.ylim([-3,3])
+
+plt.xlabel("g_1")
+plt.ylabel("g_2")
+
+plt.scatter(g_1b,g_2b)
+plt.scatter(g_1a,g_2a)
+plt.plot(g_1,g_2, 'blue')
+plt.plot(b,d, 'black')
+plt.plot(d,b, 'black')
+
+plt.show()
+"""
